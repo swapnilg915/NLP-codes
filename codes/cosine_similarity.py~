@@ -1,0 +1,36 @@
+import math
+from collections import Counter
+
+def get_cosine(vec_one, vec_two):
+
+	common = set(vec_one.keys()) & set(vec_two.keys())
+	print "\n common => ",common
+	numerator = sum([vec_one[x] * vec_two[x] for x in common])
+	print "\n numerator => ",numerator
+
+	sum_one= sum([vec_one[x]**2 for x in vec_one.keys()])
+	sum_two= sum([vec_two[x]**2 for x in vec_two.keys()])
+	print "\n sum_one=> ",sum_one,"\n sum_two=> ",sum_two
+	denominator = math.sqrt(sum_one) * math.sqrt(sum_two)
+
+	if not denominator:
+		return 0.0
+	else:
+		return float(numerator) / denominator
+
+def text_to_vector(text):
+
+	words = text.split()
+	print "\n words => ",words
+	return Counter(words)
+
+text_one= "this is an article on analytics vidya"
+text_two= "article on analytics vidya is about NLP"
+
+vector_one= text_to_vector(text_one)
+vector_two= text_to_vector(text_two)
+
+print "\n vector_one => ",vector_one,"\n vector_two => ",vector_two
+cosine = get_cosine(vector_one, vector_two)
+print "\n cosine similarity => ",cosine
+
